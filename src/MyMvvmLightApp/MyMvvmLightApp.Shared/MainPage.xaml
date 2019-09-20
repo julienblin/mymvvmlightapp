@@ -8,6 +8,14 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<StackPanel>
 		<TextBlock Text="Hello, world !" Margin="20" FontSize="30" />
+
+		<Button Content="Do something"
+		  Command="{Binding DoSomethingCommand}" />
+
+		<Button Content="Do something async"
+		  Command="{Binding DoSomethingAsyncCommand}" />
+			</StackPanel>
     </Grid>
 </Page>

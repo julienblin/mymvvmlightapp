@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using MyMvvmLightApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,8 @@ namespace MyMvvmLightApp
         public MainPage()
         {
             this.InitializeComponent();
-        }
+
+			DataContext = Startup.ServiceProvider.GetService(typeof(MainPageViewModel));
+		}
     }
 }

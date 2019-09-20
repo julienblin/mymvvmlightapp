@@ -15,7 +15,6 @@
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseIntermediateDesignerFile>True</AndroidUseIntermediateDesignerFile>
@@ -60,9 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.UI" Version="1.44.0" />
+    <PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
+    <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.1.0" />
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0-rc1.19456.10" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0-rc1.19456.10" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.0.0-rc1.19456.10" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.0.0-rc1.19456.10" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -85,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json" />
   </ItemGroup>
   <Import Project="..\MyMvvmLightApp.Shared\MyMvvmLightApp.Shared.projitems" Label="Shared" Condition="Exists('..\MyMvvmLightApp.Shared\MyMvvmLightApp.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
