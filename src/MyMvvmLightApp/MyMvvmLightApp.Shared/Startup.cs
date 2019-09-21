@@ -38,14 +38,14 @@ namespace MyMvvmLightApp
 		{
 			if (ctx.HostingEnvironment.IsEnvironment("Mock"))
 			{
-				services.AddSingleton<IExampleService, MockExampleService>();
+				services.AddSingleton<IProductsService, MockProductsService>();
 			}
 			else
 			{
-				services.AddSingleton<IExampleService, ExampleService>();
+				services.AddSingleton<IProductsService, ProductsService>();
 			}
 
-			services.AddTransient<MainPageViewModel>();
+			services.AddTransient<ProductsPageViewModel>();
 
 			services.AddHttpClient("MyHost", client =>
 			{

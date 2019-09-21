@@ -18,15 +18,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Startup.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ExampleService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ProductsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extended\DataLoad\DataLoad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IProductsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Product.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ProductsPage.xaml.cs">
+      <DependentUpon>ProductsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\ProductsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -47,5 +50,8 @@
 	  <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
 	  <Folder Include="$(MSBuildThisFileDirectory)Extended\" />
 	  <Folder Include="$(MSBuildThisFileDirectory)Services\" />
+	  <Folder Include="$(MSBuildThisFileDirectory)Extended\DataLoad\" />
+	  <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+	  <Folder Include="$(MSBuildThisFileDirectory)Views\" />
 	</ItemGroup>
 </Project>
