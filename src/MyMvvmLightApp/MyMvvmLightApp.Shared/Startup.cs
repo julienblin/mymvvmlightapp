@@ -22,13 +22,14 @@ namespace MyMvvmLightApp
 			var configFile = ExtractResource("appsettings.json", ApplicationData.Current.LocalFolder.Path);
 
 			var host = new HostBuilder()
-				.ConfigureHostConfiguration(c =>
-				{
-					c.AddCommandLine(new string[] { $"ContentRoot={ApplicationData.Current.LocalFolder.Path}" });
-					c.AddJsonFile(configFile);
-				})
+				.UseContentRoot(ApplicationData.Current.LocalFolder.Path)
+				.ConfigureHostConfiguration(c => c.AddJsonFile(configFile))
 				.ConfigureServices(ConfigureServices)
-				.ConfigureLogging(l => l.AddConsole())
+				.ConfigureLogging((hostingContext, logging) =>
+				{
+					logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+					logging.AddConsole(b => b.DisableColors = true);
+				})
 				.Build();
 
 			ServiceProvider = host.Services;
@@ -44,8 +45,6 @@ namespace MyMvvmLightApp
 			{
 				services.AddSingleton<IProductsService, ProductsService>();
 			}
-
-			services.AddTransient<ProductsPageViewModel>();
 
 			services.AddHttpClient("MyHost", client =>
 			{

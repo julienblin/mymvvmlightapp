@@ -27,6 +27,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\ProductsPage.xaml.cs">
       <DependentUpon>ProductsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\CountToValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Store.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\ProductsPage.xaml">
@@ -53,5 +57,8 @@
 	  <Folder Include="$(MSBuildThisFileDirectory)Extended\DataLoad\" />
 	  <Folder Include="$(MSBuildThisFileDirectory)Models\" />
 	  <Folder Include="$(MSBuildThisFileDirectory)Views\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)appsettings.json" />
 	</ItemGroup>
 </Project>

@@ -5,7 +5,22 @@
     xmlns:local="using:MyMvvmLightApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:MyMvvmLightApp.Converters"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:CountToValueConverter x:Key="AnyToVisible"
+                                          ValueIfPositive="Visible"
+                                          DefaultValue="Collapsed" />
+
+        <converters:CountToValueConverter x:Key="AnyToCollapsed"
+                                          ValueIfPositive="Collapsed"
+                                          DefaultValue="Visible" />
+
+        <converters:StringToValueConverter x:Key="NullOrEmptyToCollapsed"
+                                           ValueIfNotEmpty="Visible"
+                                           DefaultValue="Collapsed" />
+    </Page.Resources>
 
     <ScrollViewer>
         <Grid Padding="20,40,20,0">
@@ -32,44 +47,43 @@
                            TextTrimming="CharacterEllipsis"
                            Margin="0,10" />
 
-                <TextBox Text="{Binding ProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Product.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PlaceholderText="Enter a name"
                          Margin="0,10" />
 
-                <TextBox Text="{Binding ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Product.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PlaceholderText="Enter a price"
                          Margin="0,10" />
 
                 <Button Command="{Binding CreateProductCommand}"
-						Content="Create" />
+                        Content="Create" />
             </StackPanel>
 
-            <!--<Grid Grid.Row="1">
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal"
-							Margin="0,10,0,0">
+                            Margin="0,10,0,0">
                     <TextBlock Text="List of products"
-							   VerticalAlignment="Center"
+                               VerticalAlignment="Center"
                                FontWeight="Bold"
                                FontSize="16"
                                Margin="0,0,4,0" />
 
                     <TextBlock FontWeight="Bold"
                                FontSize="16"
-							   VerticalAlignment="Center"
-                               Visibility="{Binding Products.Count, Converter={StaticResource HasProductsToVisible}}">
+                               VerticalAlignment="Center"
+                               Visibility="{Binding Products.Count, Converter={StaticResource AnyToVisible}}">
 						<Run Text="(" /><Run Text="{Binding Products.Count}" /><Run Text=")" />
                     </TextBlock>
                 </StackPanel>
 
                 <Grid Grid.Row="1">
 
-                     Loading state 
-                    <StackPanel Margin="0,100,0,0"
+                    <!--<StackPanel Margin="0,100,0,0"
                                 HorizontalAlignment="Center"
                                 Visibility="{Binding LoadingStatus, Converter={StaticResource IsLoadingToVisible}}">
                         <ProgressRing IsActive="True"
@@ -84,20 +98,19 @@
                                    HorizontalTextAlignment="Center"
                                    FontSize="14"
                                    Foreground="Gray" />
-                    </StackPanel>
+                    </StackPanel>-->
 
-                    <Grid Visibility="{Binding LoadingStatus, Converter={StaticResource IsLoadingToCollapsed}}">
-                         Empty state 
+                    <Grid>
+
                         <StackPanel Margin="0,20,0,0"
-                                    Visibility="{Binding Products.Count, Converter={StaticResource HasProductsToCollapsed}}">
+                                    Visibility="{Binding Products.Count, Converter={StaticResource AnyToCollapsed}}">
                             <TextBlock Text="There are no products."
                                        FontSize="14"
                                        Foreground="Gray" />
                         </StackPanel>
 
-                         Value state 
                         <ItemsControl ItemsSource="{Binding Products}"
-                                      Visibility="{Binding Products.Count, Converter={StaticResource HasProductsToVisible}}"
+                                      Visibility="{Binding Products.Count, Converter={StaticResource AnyToVisible}}"
                                       HorizontalAlignment="Stretch">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -134,7 +147,7 @@
                         </ItemsControl>
                     </Grid>
                 </Grid>
-            </Grid>-->
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Page>

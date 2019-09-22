@@ -90,9 +90,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="appsettings.json" />
-  </ItemGroup>
   <Import Project="..\MyMvvmLightApp.Shared\MyMvvmLightApp.Shared.projitems" Label="Shared" Condition="Exists('..\MyMvvmLightApp.Shared\MyMvvmLightApp.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- This will force the generation of the APK when not buildig inside visual studio -->
