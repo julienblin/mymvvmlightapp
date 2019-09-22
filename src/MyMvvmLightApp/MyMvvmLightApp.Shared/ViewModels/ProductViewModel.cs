@@ -12,18 +12,21 @@ using MyMvvmLightApp.Services;
 
 namespace MyMvvmLightApp.ViewModels
 {
-	public class ProductItemViewModel : ViewModelBase
+	public class ProductViewModel : ViewModelBase
 	{
 		private readonly IProductsService _productsService;
 
 		public Product Product { get; set; }
+		public Store Store { get; set; }
+
 		public ICommand UpdateProductCommand { get; set; }
 		public ICommand DeleteProductCommand { get; set; }
 
-		public ProductItemViewModel(IServiceProvider serviceProvider, Product product)
+		public ProductViewModel(IServiceProvider serviceProvider, Store store, Product product)
 		{
 			_productsService = serviceProvider.GetRequiredService<IProductsService>();
 
+			Store = store;
 			Product = product;
 
 			UpdateProductCommand = new AsyncCommand(UpdateProduct);
@@ -32,19 +35,14 @@ namespace MyMvvmLightApp.ViewModels
 
 		private async Task UpdateProduct()
 		{
-			var updatedProduct = new Product
-			{
-				Identifier = Product.Identifier,
-				Name = Product.Name,
-				Price = Product.Price + 100
-			};
+			Product.Price += 100;
 
-			await _productsService.Update(CancellationToken.None, Product, updatedProduct);
+			await Product.Save(_productsService);
 		}
 
 		private async Task DeleteProduct()
 		{
-			await _productsService.Delete(CancellationToken.None, Product);
+			await Product.Delete(Store, _productsService);
 		}
 	}
 }

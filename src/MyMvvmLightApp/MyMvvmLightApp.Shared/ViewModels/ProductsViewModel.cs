@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AsyncAwaitBestPractices.MVVM;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using MyMvvmLightApp.Models;
 using MyMvvmLightApp.Services;
 
 namespace MyMvvmLightApp.ViewModels
 {
-	public class ProductsPageViewModel : ViewModelBase
+	public class ProductsViewModel : ViewModelBase
 	{
 		private readonly IServiceProvider _serviceProvider;
 		private readonly IProductsService _productsService;
@@ -40,15 +39,24 @@ namespace MyMvvmLightApp.ViewModels
 			set { Set(ref _store, value); }
 		}
 
+		private ObservableCollection<ProductViewModel> _products;
+		public ObservableCollection<ProductViewModel> Products
+		{
+			get => _products;
+			set => Set(ref _products, value);
+		}
+
 		public ICommand CreateProductCommand { get; }
 
-		public ProductsPageViewModel(IServiceProvider serviceProvider)
+		public ProductsViewModel(IServiceProvider serviceProvider)
 		{
 			_serviceProvider = serviceProvider;
 			_productsService = serviceProvider.GetRequiredService<IProductsService>();
 
+			_store = new Store();
 			_product = new Product();
 			_product.PropertyChanged += OnProductChanged;
+			_store.Products.CollectionChanged += OnProductsChanged;
 
 			CreateProductCommand = new AsyncCommand(CreateProduct);
 		}
@@ -60,12 +68,7 @@ namespace MyMvvmLightApp.ViewModels
 
 		private async Task CreateProduct()
 		{
-			await _product.Save();
-
-			var createdProduct = await _productsService.Create(CancellationToken.None, Product);
-			var productItemViewModel = new ProductItemViewModel(_serviceProvider, createdProduct);
-
-			Products.Add(productItemViewModel);
+			await _product.Save(Store, _productsService);
 
 			Product.Name = string.Empty;
 			Product.Price = string.Empty;
@@ -78,6 +81,11 @@ namespace MyMvvmLightApp.ViewModels
 			ProductStatus = productName?.Length > 0
 				? $"A product with the name '{productName}' will be created."
 				: "Fill the form below to create a new product.";
+		}
+
+		private void OnProductsChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			// TODO To sync ViewModel collections, look here; ObservableViewModelCollection
 		}
 	}
 }

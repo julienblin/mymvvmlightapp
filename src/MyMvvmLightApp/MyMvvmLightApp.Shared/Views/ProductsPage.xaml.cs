@@ -27,7 +27,7 @@ namespace MyMvvmLightApp
 		{
 			this.InitializeComponent();
 
-			DataContext = new ProductsPageViewModel(Startup.ServiceProvider);
+			DataContext = new ProductssVViewModel(Startup.ServiceProvider);
 		}
 	}
 }

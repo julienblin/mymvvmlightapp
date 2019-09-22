@@ -18,7 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Startup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ProductsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extended\DataLoad\DataLoad.cs" />
@@ -29,7 +29,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CountToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToValueConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Store.cs" />
   </ItemGroup>
   <ItemGroup>

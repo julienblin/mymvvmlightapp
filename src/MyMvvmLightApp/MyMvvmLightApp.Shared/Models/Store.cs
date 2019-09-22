@@ -15,6 +15,7 @@ namespace MyMvvmLightApp.Models
 
 		public Store()
 		{
+			_products = new ObservableCollection<Product>();
 		}
 	}
 }

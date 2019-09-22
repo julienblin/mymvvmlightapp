@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
+using MyMvvmLightApp.Services;
 
 namespace MyMvvmLightApp.Models
 {
@@ -27,7 +29,7 @@ namespace MyMvvmLightApp.Models
 			set { Set(ref _price, value); }
 		}
 
-		public async Task Save()
+		public async Task<Product> Save(Store store, IProductsService productsService)
 		{
 			Name = Name?.Trim();
 			Price = Price?.Trim();
@@ -38,6 +40,24 @@ namespace MyMvvmLightApp.Models
 			{
 				throw new InvalidOperationException("Invalid price.");
 			}
+
+			if (Identifier == null)
+			{
+				var createdProduct = await productsService.Create(CancellationToken.None, this);
+
+				store.Products.Add(createdProduct);
+
+				return createdProduct;
+			}
+
+			return await productsService.Update(CancellationToken.None, this, this);
+		}
+
+		public async Task Delete(Store store, IProductsService productsService)
+		{
+			await productsService.Delete(CancellationToken.None, this);
+
+			store.Products.Remove(this);
 		}
 
 		public override string ToString() => $"[Identifier: '{Identifier}', Name: '{Name}', Price: '{Price}']";
